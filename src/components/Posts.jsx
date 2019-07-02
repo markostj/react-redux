@@ -1,28 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Posts extends Component {
-  state = {
-    id: null,
-    posts: null
-  };
-  componentDidMount() {
-    /* const id = this.props.match.params.postid;
-    this.setState({
-      id
-    }); */
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then(response => response.json())
-      .then(json =>
-        this.setState({
-          posts: json
-        })
-      )
-      .catch(error => console.log(error));
-  }
-  postClick = e => {};
   render() {
-    const { id, posts } = this.state;
+    console.log(this.props);
+    const { id, posts } = this.props;
     return (
       <div className="post">
         {posts
@@ -39,4 +22,10 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  };
+};
+
+export default connect(mapStateToProps)(Posts);
